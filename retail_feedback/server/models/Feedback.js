@@ -5,6 +5,7 @@ const feedbackSchema = new mongoose.Schema({
     availability: Number,
     experience: Number,
     comment: String,
+    createdAt: { type: Date, default: Date.now }
 });
 
 module.exports = mongoose.model('Feedback', feedbackSchema);
