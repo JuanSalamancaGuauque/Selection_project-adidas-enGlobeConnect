@@ -1,5 +1,6 @@
 import {useState} from 'react';
-
+import './Form.css';
+import adidas from './assets/adidas.png';
 export default function Form()
 {
     const [form, setForm]=useState({
@@ -43,10 +44,11 @@ const Rating = (field) =>
     </button>
 ));
 
+
 return (
     <form className = "form" onSubmit = {handleSubmit}>
-
-    <div className = "logo-divider"></div>
+    <img src={adidas} alt="Adidas Logo" className="logo"/>
+    <hr className = "logo-divider"/>
 
     <div className="slogan">
         <strong>Your Feedback</strong> <br />
@@ -57,7 +59,7 @@ return (
 
     <select value={form.location}
     onChange = {e => setForm({...form, location:e.target.value})}>
-     <option value = "">Store Locator</option>
+     <option value = "">Store Location</option>
      <option value = "adidas Store | Unicentro">adidas Store Bogota, Centro Comercial Unicentro</option>
      <option value = "adidas Outlet | Cra 13 #58-15">adidas Outlet Store Bogota, Cra 13 # 58-15</option>
      <option value = "adidas Store | Brand Center">adidas Brand Center Bogota</option>

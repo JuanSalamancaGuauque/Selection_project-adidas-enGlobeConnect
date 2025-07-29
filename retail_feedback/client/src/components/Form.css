@@ -1,0 +1,98 @@
+form.form{
+    width: 300px;
+    margin: auto;
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.logo{
+    margin: 15px auto 0px;
+    width: 70px;
+    height: auto;
+}
+
+.logo-divider{
+    border: none;
+    border-bottom: 2px solid black;
+    width: 100%;
+    margin: 10px auto;
+}
+
+.slogan{
+    background-color: black;
+    color:white;
+    padding: 25px;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+.text_header{
+    font-weight:bold;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+select{
+    display: block;
+    width:100%;
+    max-width:260px;
+    margin: 0 auto;
+    padding: 8px;
+    border-radius: 9px;
+    border: 1px solid black;
+    font-size: 14px;
+    text-align:center;
+    text-align-last:center;
+}
+
+label{
+    text-align: center;
+    width: 100%;
+    display: block;
+    font-weight: bold;
+}
+
+.rating, .rating_string{
+    display: flex;
+    justify-content: space-between;
+}
+
+.rating button,
+.rating_string button{
+    flex: 1;
+    padding: 8px 0;
+    margin: 2px;
+    border: 1px solid #ccc;
+    background: white;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.rating button.selected,
+.rating_string button.selected{
+    background-color: black;
+    color: white;
+    border: none;
+}
+
+textarea{
+    resize: none;
+    height: 60px;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+.Bttn_send{
+    background-color: black;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
