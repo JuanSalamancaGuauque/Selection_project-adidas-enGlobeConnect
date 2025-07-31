@@ -6,7 +6,16 @@ form.form{
     flex-direction: column;
     gap: 12px;
 }
-
+.form-container {
+  background-color: #fff;
+  padding: 20px;
+  margin: 20px auto;
+  width: 90%;
+  max-width: 370px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
 .logo{
     margin: 15px auto 0px;
     width: 70px;
@@ -85,6 +94,7 @@ textarea{
     border-radius: 6px;
     border: 1px solid #ccc;
     font-size: 14px;
+    font-family:sans-serif;
 }
 
 .Bttn_send{
@@ -96,3 +106,84 @@ textarea{
     cursor: pointer;
     font-weight: bold;
 }
+
+.custom-rating{
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 1px;
+    margin: 10px 0;
+    height: 40px;
+}
+
+.bar-wrapper{
+    width: 20px;
+    background-color: #e0e0e0;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+    border-radius:2px;
+}
+
+.bar-0{
+    height:13px;
+    transform: skew(35deg);
+    position: relative;
+   clip-path: polygon(0 55%, 100% 0, 100% 100%, 0% 100%);
+}
+
+.bar-1{
+    height: 27px;
+    transform: skew(35deg);
+    position: relative;
+    clip-path: polygon(0 32%, 100% 0, 100% 100%, 0% 100%);
+}
+
+.bar-2{
+    height:40px;
+    transform: skew(35deg);
+    position: relative;
+    clip-path: polygon(0 20%, 100% 0, 100% 100%, 0% 100%);
+}
+
+.bar-fill{
+    width:100%;
+    background-color:black;
+    transition:height 0.3s ease;
+}
+
+.custom-slider{
+    appearance: none;
+    width:100%;
+    height:6px;
+    background:black;
+    border-radius:4px;
+    outline:none;
+    margin-top:8px;
+}
+
+.custom-slider::-webkit-slider-thumb{
+    appearance:none;
+    width:16px;
+    height:16px;
+    background: black;
+    border-radius:50%;
+    cursor:pointer;
+    border:2px solid black;
+}
+
+.custom-slider::-moz-range-thumb{
+    width:16px;
+    height:16px;
+    background:white;
+    border-radius:50%;
+    cursor:pointer;
+    border:2px solid black;
+}
+
+.slider-value{
+    text-align:center;
+    font-weight:bold;
+    margin-top:4px;
+}
+
