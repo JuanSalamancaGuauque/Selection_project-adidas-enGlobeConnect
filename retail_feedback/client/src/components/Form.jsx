@@ -93,7 +93,7 @@ return (
         
             {['Yes', 'No', 'Not Sure'].map(option => (
                 <button
-                type ="buttom"
+                type ="button"
                 key = {option}
                 className = {form.staff === option ? 'selected' : ''}
                 onClick={() => setForm({...form, staff: option})}

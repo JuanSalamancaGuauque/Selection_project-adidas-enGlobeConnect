@@ -7,13 +7,12 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Conexión a MongoDB
-mongoose.connect('mongodb://localhost:27017')
+mongoose.connect('mongodb://localhost:27017/retail_feedback')
   .then(() => console.log('Conectado a MongoDB'))
   .catch((err) => console.error('Error de conexión:', err));
 
 // Modelos
-const Feedback = require('./models/Feedback');
+const Feedback = require('./models/feedback');
 const HighlightedComment = require('./models/highlightedComment');
 
 // Rutas de feedback
