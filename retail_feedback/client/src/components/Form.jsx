@@ -14,25 +14,41 @@ export default function Form()
 const [commentClicked, setCommentClicked]=useState(false);
 
 const handleSubmit = async (e) => {
-    e.preventDefault();
-    await fetch('http://localhost:4000/api/feedback',{
+  e.preventDefault();
+
+  const { location, availability, staff, cleanliness, satisfaction } = form;
+
+  // Validación de campos requeridos
+  if (
+    location === '' ||
+    availability === '' ||
+    staff === '' ||
+    cleanliness === '' ||
+    satisfaction === 0
+  ) {
+    alert('Please complete all required fields before submitting.');
+    return;
+  }
+
+  await fetch('http://localhost:4000/api/feedback', {
     method: 'POST',
-    headers: { 'Content-Type' : 'application/json'},
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(form),
-});
+  });
 
-alert('Thank you for your feedback!');
+  alert('Thank you for your feedback!');
 
-setForm({  
+  setForm({
     location: '',
     availability: '',
     staff: '',
     cleanliness: '',
-    satisfaction: '',
+    satisfaction: 0,
     comment: ''
-    });
-    setCommentClicked(false);
+  });
+  setCommentClicked(false);
 };
+
 
 const Rating = (field) =>
 [1, 2, 3, 4, 5].map(num =>(

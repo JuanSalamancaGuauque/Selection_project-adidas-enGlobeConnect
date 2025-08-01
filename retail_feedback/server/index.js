@@ -13,7 +13,7 @@ mongoose.connect('mongodb://localhost:27017')
   .catch((err) => console.error('Error de conexión:', err));
 
 // Modelos
-const Feedback = require('./models/feedback');
+const Feedback = require('./models/Feedback');
 const HighlightedComment = require('./models/highlightedComment');
 
 // Rutas de feedback

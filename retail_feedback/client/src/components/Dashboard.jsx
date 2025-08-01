@@ -63,7 +63,7 @@ export default function Dashboard() {
       .map(f => ({ x: new Date(f.createdAt), y: f[field] }))
   );
 
-  const staffCounts = staffLabels.map(label => filtered.filter(f => f.staffHelpful === label).length);
+  const staffCounts = staffLabels.map(label => filtered.filter(f => f.staff === label).length);
 
   const chartSettings = (data, color) => ({
     labels: ratingLabels,
@@ -142,9 +142,9 @@ export default function Dashboard() {
             <div className="stats-container">
               {[
                 ['Feedbacks', filtered.length],
-                ['Average Availability', calculateAverage('ratingAvailability')],
-                ['Average Cleanliness', calculateAverage('storeCleanliness')],
-                ['Average Experience', calculateAverage('overallSatisfaction')],
+                ['Average Availability', calculateAverage('availability')],
+                ['Average Cleanliness', calculateAverage('cleanliness')],
+                ['Average Experience', calculateAverage('satisfaction')],
               ].map(([label, value]) => (
                 <div key={label} className="card">{label}<span>{value}</span></div>
               ))}
@@ -153,7 +153,7 @@ export default function Dashboard() {
             <div className="charts-grid">
               <div className="chart-container">
                 <h4>Product Availability</h4>
-                <Bar data={chartSettings(countRatings('ratingAvailability'), '#36a2eb')}
+                <Bar data={chartSettings(countRatings('availability'), '#36a2eb')}
                   options={{ plugins: { legend: { display: false } } }} />
               </div>
               <div className="chart-container">
@@ -163,12 +163,12 @@ export default function Dashboard() {
               </div>
               <div className="chart-container">
                 <h4>Store Cleanliness</h4>
-                <Bar data={chartSettings(countRatings('storeCleanliness'), '#4bc0c0')}
+                <Bar data={chartSettings(countRatings('cleanliness'), '#4bc0c0')}
                   options={{ plugins: { legend: { display: false } } }} />
               </div>
               <div className="chart-container">
                 <h4>Overall Experience</h4>
-                <Bar data={chartSettings(countRatings('overallSatisfaction'), '#ff6384')}
+                <Bar data={chartSettings(countRatings('satisfaction'), '#ff6384')}
                   options={{ plugins: { legend: { display: false } } }} />
               </div>
             </div>
@@ -178,17 +178,17 @@ export default function Dashboard() {
           <div className="charts-grid">
             <div className="chart-container">
               <h4>Trend: Availability</h4>
-              <Line data={lineSettings('Availability', getTimeData('ratingAvailability'), '#36a2eb')}
+              <Line data={lineSettings('Availability', getTimeData('availability'), '#36a2eb')}
                 options={timeOptions} />
             </div>
             <div className="chart-container">
               <h4>Trend: Cleanliness</h4>
-              <Line data={lineSettings('Cleanliness', getTimeData('storeCleanliness'), '#4bc0c0')}
+              <Line data={lineSettings('Cleanliness', getTimeData('cleanliness'), '#4bc0c0')}
                 options={timeOptions} />
             </div>
             <div className="chart-container">
               <h4>Trend: Satisfaction</h4>
-              <Line data={lineSettings('Satisfaction', getTimeData('overallSatisfaction'), '#ff6384')}
+              <Line data={lineSettings('Satisfaction', getTimeData('satisfaction'), '#ff6384')}
                 options={timeOptions} />
             </div>
           </div>
