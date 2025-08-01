@@ -1,4 +1,3 @@
-// models/highlightedComment.js
 const mongoose = require('mongoose');
 
 const HighlightedCommentSchema = new mongoose.Schema({
