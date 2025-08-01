@@ -12,7 +12,7 @@ import adidas from './assets/adidaswhite.png';
 ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, LineElement, PointElement, Title, Tooltip, Legend, TimeScale);
 
 const ratingLabels = ['1', '2', '3', '4', '5'];
-const staffLabels = ['Yes', 'No', 'Not sure'];
+const staffLabels = ['Yes', 'No', 'Not Sure'];
 
 export default function Dashboard() {
   const [feedbacks, setFeedbacks] = useState([]);

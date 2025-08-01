@@ -11,7 +11,7 @@ export default function Form()
     satisfaction: 0,
     comment: ''
 });
-const [hoverExp, setHoverExp]=useState(null);
+
 const [commentClicked, setCommentClicked]=useState(false);
 
 const handleSubmit = async (e) => {
