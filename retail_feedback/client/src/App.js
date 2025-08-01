@@ -1,4 +1,4 @@
-import StartPague from './components/Dashboard'
+import StartPague from './components/DashClient'
 
 function App() {
 return (
