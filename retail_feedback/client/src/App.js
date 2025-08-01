@@ -1,4 +1,4 @@
-import StartPague from './components/Form'
+import StartPague from './components/Dashboard'
 
 function App() {
 return (
