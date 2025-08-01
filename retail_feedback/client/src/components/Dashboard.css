@@ -11,14 +11,14 @@ body {
 }
 
 .sideMenu {
-  width: 220px;
-  background: linear-gradient(180deg, #121212, #1e1e1e);
-  color: #fff;
+  background: #121212;
+  color: white;
+  width: 200px;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 40px 15px;
-  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+  padding-top: 1rem;
 }
 
 .sideMenu-logo {
@@ -28,10 +28,11 @@ body {
 
 .main-dashboard {
   flex: 1;
-  padding: 40px;
-  background: #f9fafb;
+  background: #f4f4f4;
+  padding: 2rem;
   overflow-y: auto;
 }
+
 
 h1 {
   text-align: center;
@@ -54,7 +55,7 @@ h1 {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 }
 
-.stats-cards {
+.stats-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 24px;
@@ -117,23 +118,29 @@ h1 {
 }
 
 .sideMenu-button {
-  background: none;
+  background: transparent;
+  color: white;
+  padding: 0.75rem 1rem;
+  width: 100%;
+  text-align: left;
   border: none;
-  color: #fff;
+  outline: none;
+  cursor: pointer;
+  transition: 0.2s;
   font-size: 16px;
   font-weight: bold;
-  text-align: left;
-  padding: 10px 20px;
-  cursor: pointer;
-  transition: background 0.2s ease;
 }
 
 .sideMenu-button:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
+  background: #1e1e1e;
 }
 
-
+.sideMenu-button.active {
+  background: #fff;
+  color: #121212;
+  font-weight: bold;
+  font-weight: 600;
+}
 @media (max-width: 768px) {
   .dashboard-layout {
     flex-direction: column;
@@ -154,4 +161,52 @@ h1 {
   .main-dashboard {
     padding: 20px;
   }
+}
+
+.comments-section {
+  background: #fff;
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+  margin-top: 30px;
+}
+
+.comments-section h2 {
+  margin-bottom: 16px;
+  text-align: center;
+  font-size: 22px;
+}
+
+.comments-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.comment-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+}
+
+.comment-item p {
+  margin: 0;
+  flex: 1;
+}
+
+.highlight-button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  background-color: #ff9800;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  margin-left: 12px;
+}
+
+.highlight-button:hover {
+  background-color: #e68900;
 }

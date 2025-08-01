@@ -7,12 +7,16 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect('mongodb://localhost:27017/retail_feedback')
+// Conexión a MongoDB
+mongoose.connect('mongodb://localhost:27017')
   .then(() => console.log('Conectado a MongoDB'))
   .catch((err) => console.error('Error de conexión:', err));
 
+// Modelos
 const Feedback = require('./models/feedback');
+const HighlightedComment = require('./models/highlightedComment');
 
+// Rutas de feedback
 app.post('/api/feedback', async (req, res) => {
   try {
     const data = new Feedback(req.body);
@@ -23,10 +27,26 @@ app.post('/api/feedback', async (req, res) => {
   }
 });
 
-
 app.get('/api/feedback', async (req, res) => {
   const all = await Feedback.find().sort({ createdAt: -1 });
   res.json(all);
 });
 
+// Rutas de comentarios destacados
+app.get('/api/highlighted', async (req, res) => {
+  const comments = await HighlightedComment.find().sort({ createdAt: -1 });
+  res.json(comments);
+});
+
+app.post('/api/highlighted', async (req, res) => {
+  try {
+    const data = new HighlightedComment(req.body);
+    await data.save();
+    res.status(201).send({ message: 'Comentario destacado guardado' });
+  } catch (error) {
+    res.status(400).send({ error: 'Error al guardar comentario destacado' });
+  }
+});
+
+// Puerto
 app.listen(4000, () => console.log('Servidor en http://localhost:4000'));

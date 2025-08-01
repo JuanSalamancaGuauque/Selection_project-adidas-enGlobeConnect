@@ -17,12 +17,28 @@ const staffLabels = ['Yes', 'No', 'Not sure'];
 export default function Dashboard() {
   const [feedbacks, setFeedbacks] = useState([]);
   const [selectedStore, setSelectedStore] = useState('');
+  const [selectedView, setSelectedView] = useState('statistics');
 
   useEffect(() => {
     fetch('http://localhost:4000/api/feedback')
       .then(res => res.json())
-      .then(setFeedbacks);
+      .then(setFeedbacks)
+      .catch(err => console.error('Error al cargar feedback:', err));
   }, []);
+
+  const HighlightComm = async (commentId, commentText) => {
+    try {
+      await fetch('http://localhost:4000/api/highlighted', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ commentId, commentText })
+      });
+      alert('Comentario destacado');
+    } catch (err) {
+      console.error('Error al destacar comentario:', err);
+      alert('No se pudo destacar el comentario.');
+    }
+  };
 
   const stores = [...new Set(feedbacks.map(f => f.storeLocation))];
   const filtered = selectedStore ? feedbacks.filter(f => f.storeLocation === selectedStore) : feedbacks;
@@ -72,9 +88,26 @@ export default function Dashboard() {
       <aside className="sideMenu">
         <img src={adidas} alt="Logo" className="sideMenu-logo" />
         <nav className="sideMenu-nav">
-            <button className="sideMenu-button">Statistics</button>
-            <button className="sideMenu-button">Tendencies</button>
+          <button
+            className={`sideMenu-button ${selectedView === 'statistics' ? 'active' : ''}`}
+            onClick={() => setSelectedView('statistics')}
+          >
+            Statistics
+          </button>
+          <button
+            className={`sideMenu-button ${selectedView === 'tendencies' ? 'active' : ''}`}
+            onClick={() => setSelectedView('tendencies')}
+          >
+            Tendencies
+          </button>
+          <button
+            className={`sideMenu-button ${selectedView === 'comments' ? 'active' : ''}`}
+            onClick={() => setSelectedView('comments')}
+          >
+            Comments
+          </button>
         </nav>
+
       </aside>
 
       <main className="main-dashboard">
@@ -84,63 +117,82 @@ export default function Dashboard() {
           <option value="">SHOP</option>
           {stores.map(store => <option key={store} value={store}>{store}</option>)}
         </select>
+        {selectedView === 'comments' && (
+          <div className="comments-section">
+            <h2>Customer Comments</h2>
+            <ul className="comments-list">
+              {filtered
+                .filter(f => f.comment)
+                .map((f, i) => (
+                  <li key={i} className="comment-item">
+                    <p>{f.comment}</p>
+                    <button
+                      onClick={() => HighlightComm(f._id, f.comment)}
+                      className="highlight-button"
+                    >
+                      Highlight
+                    </button>
+                  </li>
+                ))}
+            </ul>
+          </div>
+        )}
+        {selectedView === 'statistics' && (
+          <>
+            <div className="stats-container">
+              {[
+                ['Feedbacks', filtered.length],
+                ['Average Availability', calculateAverage('ratingAvailability')],
+                ['Average Cleanliness', calculateAverage('storeCleanliness')],
+                ['Average Experience', calculateAverage('overallSatisfaction')],
+              ].map(([label, value]) => (
+                <div key={label} className="card">{label}<span>{value}</span></div>
+              ))}
+            </div>
 
-        <div className="stats-cards">
-          {[
-            ['Feedbacks', filtered.length],
-            ['Avg. Availability', calculateAverage('ratingAvailability')],
-            ['Avg. Cleanliness', calculateAverage('storeCleanliness')],
-            ['Avg. Satisfaction', calculateAverage('overallSatisfaction')],
-          ].map(([label, value]) => (
-            <div key={label} className="card">{label}<span>{value}</span></div>
-          ))}
-        </div>
-
-        <div className="charts-grid">
-
-            <div className="chart-container">
+            <div className="charts-grid">
+              <div className="chart-container">
                 <h4>Product Availability</h4>
                 <Bar data={chartSettings(countRatings('ratingAvailability'), '#36a2eb')}
-                options={{ plugins: { legend: { display: false } } }} 
-                />
-            </div>
-            <div className="chart-container">
-                <h4>Was the staff Helpfull</h4>
+                  options={{ plugins: { legend: { display: false } } }} />
+              </div>
+              <div className="chart-container">
+                <h4>Was the staff Helpful</h4>
                 <Pie data={{ labels: staffLabels, datasets: [{ data: staffCounts, backgroundColor: ['#4caf50', '#f44336', '#ff9800'] }] }}
-                options={{ plugins: { legend: { position: 'bottom' } } }} 
-                />
-            </div>
-            <div className="chart-container">
+                  options={{ plugins: { legend: { position: 'bottom' } } }} />
+              </div>
+              <div className="chart-container">
                 <h4>Store Cleanliness</h4>
-                <Bar data={chartSettings(countRatings('storeCleanliness'), '#4bc0c0')} 
-                options={{ plugins: { legend: { display: false } } }} 
-                />
-            </div>
-            <div className="chart-container">
+                <Bar data={chartSettings(countRatings('storeCleanliness'), '#4bc0c0')}
+                  options={{ plugins: { legend: { display: false } } }} />
+              </div>
+              <div className="chart-container">
                 <h4>Overall Experience</h4>
-                <Bar data={chartSettings(countRatings('overallSatisfaction'), '#ff6384')} 
-                options={{ plugins: { legend: { display: false } } }} 
-                />
+                <Bar data={chartSettings(countRatings('overallSatisfaction'), '#ff6384')}
+                  options={{ plugins: { legend: { display: false } } }} />
+              </div>
+            </div>
+          </>
+        )}
+        {selectedView === 'tendencies' && (
+          <div className="charts-grid">
+            <div className="chart-container">
+              <h4>Trend: Availability</h4>
+              <Line data={lineSettings('Availability', getTimeData('ratingAvailability'), '#36a2eb')}
+                options={timeOptions} />
             </div>
             <div className="chart-container">
-                <h4>Trend: Availability</h4>
-                <Line data={lineSettings('Availability', getTimeData('ratingAvailability'), '#36a2eb')} 
-                options={timeOptions} 
-                />
+              <h4>Trend: Cleanliness</h4>
+              <Line data={lineSettings('Cleanliness', getTimeData('storeCleanliness'), '#4bc0c0')}
+                options={timeOptions} />
             </div>
             <div className="chart-container">
-                <h4>Trend: Cleanliness</h4>
-                <Line data={lineSettings('Cleanliness', getTimeData('storeCleanliness'), '#4bc0c0')} 
-                options={timeOptions} 
-                />
+              <h4>Trend: Satisfaction</h4>
+              <Line data={lineSettings('Satisfaction', getTimeData('overallSatisfaction'), '#ff6384')}
+                options={timeOptions} />
             </div>
-            <div className="chart-container">
-                <h4>Trend: Satisfaction</h4>
-                <Line data={lineSettings('Satisfaction', getTimeData('overallSatisfaction'), '#ff6384')} 
-                options={timeOptions} 
-                />
-            </div>
-        </div>
+          </div>
+        )}
       </main>
     </div>
   );
