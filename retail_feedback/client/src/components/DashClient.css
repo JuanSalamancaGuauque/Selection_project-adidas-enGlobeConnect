@@ -17,20 +17,12 @@
 }
 
 .chart_box {
-  display: flex;
-  justify-content: space-between;
-  border-radius: 25px;
-  background: rgba(55, 56, 61, 0.66);
-  padding: 3rem 4rem;
-  width: 100%;
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
-}
-
-.chart_box.loaded {
-  opacity: 1;
-  transform: translateY(0);
+   display: flex;
+    justify-content: space-between;
+    border-radius: 25px;
+    background: rgba(55, 56, 61, 0.66);
+    padding: 3rem 4rem;
+    width: 100%; 
 }
 
 .column {
@@ -45,7 +37,7 @@
     align-items: center;
     text-align: center;
     padding: 2rem 0;
-    justify-content: space-between;
+    justify-content: space-between; /* Logo arriba, rating abajo */
 }
 
 .adidas_logo {
@@ -70,7 +62,7 @@ justify-content: center;
     line-height: 1.2;
 }
 
-.foundation{
+.fundation{
     display: flex;
     align-items: center;
     font-weight: bold;
@@ -157,16 +149,4 @@ justify-content: center;
 .chart_box  * {
   color: white;
 }
-
-.fade-in {
-  opacity: 1;
-  transition: opacity 0.5s ease-in;
-}
-
-.fade-out {
-  opacity: 0;
-  transition: opacity 0.5s ease-out;
-}
-
-
 

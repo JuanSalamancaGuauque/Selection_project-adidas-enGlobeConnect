@@ -11,6 +11,7 @@ export default function Form()
     satisfaction: 0,
     comment: ''
 });
+const [hoverExp, setHoverExp]=useState(null);
 const [commentClicked, setCommentClicked]=useState(false);
 
 const handleSubmit = async (e) => {
@@ -76,7 +77,7 @@ return (
         
             {['Yes', 'No', 'Not Sure'].map(option => (
                 <button
-                type ="button"
+                type ="buttom"
                 key = {option}
                 className = {form.staff === option ? 'selected' : ''}
                 onClick={() => setForm({...form, staff: option})}
@@ -140,5 +141,5 @@ function getBarFillHeight (value, index){
         4:[100,100,50],
         5:[100,100,100],
     };
-    return levels[value]?.[index]||0;
+    return levels [value]?.[index]||0;
 }
