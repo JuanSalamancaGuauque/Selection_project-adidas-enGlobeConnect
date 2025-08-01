@@ -40,8 +40,8 @@ export default function Dashboard() {
     }
   };
 
-  const stores = [...new Set(feedbacks.map(f => f.storeLocation))];
-  const filtered = selectedStore ? feedbacks.filter(f => f.storeLocation === selectedStore) : feedbacks;
+  const stores = [...new Set(feedbacks.map(f => f.location))];
+  const filtered = selectedStore ? feedbacks.filter(f => f.location === selectedStore) : feedbacks;
 
   if (!filtered.length) return <p>Loading data or no results...</p>;
 
