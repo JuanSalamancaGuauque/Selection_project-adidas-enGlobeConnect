@@ -22,7 +22,7 @@ export default function DashClient() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [fadeImage, setFadeImage] = useState(true);
 
-  const storeName = 'unicentro';
+  const storeName = 'Brand';
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -43,17 +43,14 @@ export default function DashClient() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const feedbackRes = await fetch('http://localhost:4000/api/feedback');
+        const feedbackRes = await fetch(`http://localhost:4000/api/feedback?location=${storeName}`);
         const feedbackJson = await feedbackRes.json();
-        const storeFeedback = feedbackJson.filter(
-          (entry) => entry.location.toLowerCase() === storeName.toLowerCase()
-        );
-        setFeedbackData(storeFeedback);
-        if (storeFeedback.length > 0) {
-          setStoreTitle(storeFeedback[0].location);
+        setFeedbackData(feedbackJson);
+        if (feedbackJson.length > 0) {
+          setStoreTitle(feedbackJson[0].location);
         }
 
-        const commentRes = await fetch('http://localhost:4000/api/highlighted');
+        const commentRes = await fetch(`http://localhost:4000/api/highlighted?location=${storeName}`);
         const commentJson = await commentRes.json();
         setHighlightedComments(commentJson);
       } catch (error) {
@@ -65,6 +62,7 @@ export default function DashClient() {
     const interval = setInterval(fetchData, 10000);
     return () => clearInterval(interval);
   }, []);
+
 
   useEffect(() => {
     const interval = setInterval(() => {

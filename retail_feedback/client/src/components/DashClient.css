@@ -88,10 +88,14 @@ justify-content: center;
     justify-content: center;
 }
 
-.idol_img{
-    width: 140%;
-    object-fit: contain;
+.idol_img {
+  width: 100%;
+  max-width: 700px; 
+  height: auto;
+  object-fit: contain;
+  margin: 0 auto;
 }
+
 
 .Third_column {
     width: 45%;

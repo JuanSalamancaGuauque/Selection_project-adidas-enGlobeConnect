@@ -26,12 +26,12 @@ export default function Dashboard() {
       .catch(err => console.error('Error al cargar feedback:', err));
   }, []);
 
-  const HighlightComm = async (commentId, commentText, locationText) => {
+  const HighlightComm = async (commentId, commentText, location) => {
     try {
       await fetch('http://localhost:4000/api/highlighted', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ commentId, commentText, locationText })
+        body: JSON.stringify({ commentId, commentText, location })
       });
       alert('Comentario destacado');
     } catch (err) {

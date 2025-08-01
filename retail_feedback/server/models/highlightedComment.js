@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const HighlightedCommentSchema = new mongoose.Schema({
   commentId: mongoose.Schema.Types.ObjectId,
   commentText: String,
-  locationText: String,
+  location: String,
   createdAt: { type: Date, default: Date.now }
 });
 

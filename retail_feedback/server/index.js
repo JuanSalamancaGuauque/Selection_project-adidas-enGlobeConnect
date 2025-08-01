@@ -27,15 +27,21 @@ app.post('/api/feedback', async (req, res) => {
 });
 
 app.get('/api/feedback', async (req, res) => {
-  const all = await Feedback.find().sort({ createdAt: -1 });
+  const { location } = req.query;
+  const query = location ? { location: new RegExp(location, 'i') } : {};
+  const all = await Feedback.find(query).sort({ createdAt: -1 });
   res.json(all);
 });
 
+
 // Rutas de comentarios destacados
 app.get('/api/highlighted', async (req, res) => {
-  const comments = await HighlightedComment.find().sort({ createdAt: -1 });
+  const { location } = req.query;
+  const query = location ? { locationText: new RegExp(location, 'i') } : {};
+  const comments = await HighlightedComment.find(query).sort({ createdAt: -1 });
   res.json(comments);
 });
+
 
 app.post('/api/highlighted', async (req, res) => {
   try {
