@@ -38,8 +38,10 @@ MongoDB Compass
 Modern browser
 
 Frontend:
-react
+React v18.2.0
 Chart.js (data visualization)
+Chartjs adapter date
+React router
 Custom CSS
 
 Backend:
