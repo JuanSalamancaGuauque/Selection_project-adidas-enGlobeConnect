@@ -35,7 +35,7 @@ app.get('/api/feedback', async (req, res) => {
 
 app.get('/api/highlighted', async (req, res) => {
   const { location } = req.query;
-  const query = location ? { locationText: new RegExp(location, 'i') } : {};
+  const query = location ? { location: new RegExp(location, 'i') } : {};
   const comments = await HighlightedComment.find(query).sort({ createdAt: -1 });
   res.json(comments);
 });

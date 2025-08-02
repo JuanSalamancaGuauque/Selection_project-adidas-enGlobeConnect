@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router';
 
 import adidas from './assets/adidaswhite.png';
 import idol1 from './assets/jefe.png';
 import idol2 from './assets/messi.png';
 import idol3 from './assets/zapatilla.png';
 import idol4 from './assets/worldcup.png';
-import { useSearchParams } from "react-router";
-
 import Fbackground from './assets/background.jpg';
 
 import './DashClient.css';
@@ -22,15 +21,16 @@ export default function DashClient() {
   const [storeTitle, setStoreTitle] = useState('Loading...');
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [fadeImage, setFadeImage] = useState(true);
-  const [storeLocation, setstoreLocation]=useState("");
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  const storeName = 'unicentro';
+  const [storeLocation, setStoreLocation] = useState('');
+  const [searchParams] = useSearchParams();
 
   useEffect(() => {
-    setstoreLocation(searchParams.get("location"));
-  }, []
-  )
+    const locationParam = searchParams.get("location");
+    if (locationParam) {
+      setStoreLocation(locationParam.toLowerCase());
+    }
+  }, [searchParams]);
+
   useEffect(() => {
     const interval = setInterval(() => {
       setFadeImage(false);
@@ -48,16 +48,18 @@ export default function DashClient() {
   }, []);
 
   useEffect(() => {
+    if (!storeLocation) return;
+
     const fetchData = async () => {
       try {
-        const feedbackRes = await fetch(`http://localhost:4000/api/feedback?location=${storeName}`);
+        const feedbackRes = await fetch(`http://localhost:4000/api/feedback?location=${storeLocation}`);
         const feedbackJson = await feedbackRes.json();
         setFeedbackData(feedbackJson);
         if (feedbackJson.length > 0) {
           setStoreTitle(feedbackJson[0].location);
         }
 
-        const commentRes = await fetch(`http://localhost:4000/api/highlighted?location=${storeName}`);
+        const commentRes = await fetch(`http://localhost:4000/api/highlighted?location=${storeLocation}`);
         const commentJson = await commentRes.json();
         setHighlightedComments(commentJson);
       } catch (error) {
@@ -68,8 +70,7 @@ export default function DashClient() {
     fetchData();
     const interval = setInterval(fetchData, 10000);
     return () => clearInterval(interval);
-  }, []);
-
+  }, [storeLocation]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -105,8 +106,6 @@ export default function DashClient() {
     <div className="background" style={{ backgroundImage: `url(${Fbackground})` }}>
       <div className="chart_container">
         <div className={`chart_box ${loaded ? 'loaded' : ''}`}>
-
-        <h1>{storeLocation}</h1>
           <div className="column First_column">
             <img src={adidas} alt="adidas logo" className="adidas_logo" />
             <div className="store_container">
@@ -119,7 +118,6 @@ export default function DashClient() {
             </div>
           </div>
 
-
           <div className="column Second_column">
             <img
               src={idolImages[currentImageIndex]}
@@ -127,7 +125,6 @@ export default function DashClient() {
               className={`idol_img ${fadeImage ? 'fade-in' : 'fade-out'}`}
             />
           </div>
-
 
           <div className="column Third_column">
             <h2>WE ARE THE BEST OPTION FOR YOU</h2>
