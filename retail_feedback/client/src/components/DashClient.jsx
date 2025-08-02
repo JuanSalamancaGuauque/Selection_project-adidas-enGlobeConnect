@@ -5,6 +5,7 @@ import idol1 from './assets/jefe.png';
 import idol2 from './assets/messi.png';
 import idol3 from './assets/zapatilla.png';
 import idol4 from './assets/worldcup.png';
+import { useSearchParams } from "react-router";
 
 import Fbackground from './assets/background.jpg';
 
@@ -21,9 +22,15 @@ export default function DashClient() {
   const [storeTitle, setStoreTitle] = useState('Loading...');
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [fadeImage, setFadeImage] = useState(true);
+  const [storeLocation, setstoreLocation]=useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const storeName = 'unicentro';
 
+  useEffect(() => {
+    setstoreLocation(searchParams.get("location"));
+  }, []
+  )
   useEffect(() => {
     const interval = setInterval(() => {
       setFadeImage(false);
@@ -98,6 +105,8 @@ export default function DashClient() {
     <div className="background" style={{ backgroundImage: `url(${Fbackground})` }}>
       <div className="chart_container">
         <div className={`chart_box ${loaded ? 'loaded' : ''}`}>
+
+        <h1>{storeLocation}</h1>
           <div className="column First_column">
             <img src={adidas} alt="adidas logo" className="adidas_logo" />
             <div className="store_container">
@@ -110,6 +119,7 @@ export default function DashClient() {
             </div>
           </div>
 
+
           <div className="column Second_column">
             <img
               src={idolImages[currentImageIndex]}
@@ -117,6 +127,7 @@ export default function DashClient() {
               className={`idol_img ${fadeImage ? 'fade-in' : 'fade-out'}`}
             />
           </div>
+
 
           <div className="column Third_column">
             <h2>WE ARE THE BEST OPTION FOR YOU</h2>

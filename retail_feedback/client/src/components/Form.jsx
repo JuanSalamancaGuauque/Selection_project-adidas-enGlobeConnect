@@ -19,7 +19,6 @@ const handleSubmit = async (e) => {
 
   const { location, availability, staff, cleanliness, satisfaction } = form;
 
-  // Validación de campos requeridos
   if (
     location === '' ||
     availability === '' ||

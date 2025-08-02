@@ -3,6 +3,7 @@ import Form from './components/Form';
 import Dashboard from './components/Dashboard';
 import DashClient from './components/DashClient';
 import './App.css';
+import { BrowserRouter } from 'react-router';
 const routes = {
   '/form': <Form />,
   '/dashboard': <Dashboard />,
@@ -25,16 +26,18 @@ function App() {
   };
 
   return (
-    <div>
-      <nav className="nav-buttons">
-        <button onClick={() => navigate('/form')}>Formulario</button>
-        <button onClick={() => navigate('/dashboard')}>Dashboard</button>
-        <button onClick={() => navigate('/dashclient')}>Public Dashboard</button>
-      </nav>
-      <main>
-        {routes[currentPath] || <h1>404 - Página no encontrada</h1>}
-      </main>
-    </div>
+    <BrowserRouter>
+      <div>
+        <nav className="nav-buttons">
+          <button onClick={() => navigate('/form')}>Formulario</button>
+          <button onClick={() => navigate('/dashboard')}>Dashboard</button>
+          <button onClick={() => navigate('/dashclient')}>Public Dashboard</button>
+        </nav>
+        <main>
+          {routes[currentPath] || <h1>404 - Página no encontrada</h1>}
+        </main>
+      </div>
+    </BrowserRouter>
   );
 }
 

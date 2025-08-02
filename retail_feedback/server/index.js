@@ -11,11 +11,10 @@ mongoose.connect('mongodb://localhost:27017/retail_feedback')
   .then(() => console.log('Conectado a MongoDB'))
   .catch((err) => console.error('Error de conexión:', err));
 
-// Modelos
+
 const Feedback = require('./models/Feedback');
 const HighlightedComment = require('./models/highlightedComment');
 
-// Rutas de feedback
 app.post('/api/feedback', async (req, res) => {
   try {
     const data = new Feedback(req.body);
@@ -34,7 +33,6 @@ app.get('/api/feedback', async (req, res) => {
 });
 
 
-// Rutas de comentarios destacados
 app.get('/api/highlighted', async (req, res) => {
   const { location } = req.query;
   const query = location ? { locationText: new RegExp(location, 'i') } : {};
@@ -53,5 +51,5 @@ app.post('/api/highlighted', async (req, res) => {
   }
 });
 
-// Puerto
+
 app.listen(4000, () => console.log('Servidor en http://localhost:4000'));
