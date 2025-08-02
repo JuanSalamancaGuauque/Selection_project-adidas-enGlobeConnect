@@ -22,7 +22,7 @@ export default function DashClient() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [fadeImage, setFadeImage] = useState(true);
 
-  const storeName = 'Brand';
+  const storeName = 'unicentro';
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -125,17 +125,17 @@ export default function DashClient() {
             <div className="ratings">
               <div className="rating_item">
                 <div className="stars">{getStars(avg('availability'))}</div>
-                <p>PRODUCT AVAILABILITY</p>
+                <p><b>PRODUCT AVAILABILITY</b></p>
               </div>
 
               <div className="rating_item">
                 <div className="stars">{getStars(avg('cleanliness'))}</div>
-                <p>STORE CARE</p>
+                <p><b>STORE CARE</b></p>
               </div>
 
               <div className="rating_item">
                 <div className="stars">{getStars(avg('satisfaction'))}</div>
-                <p>GENERAL SATISFACTION</p>
+                <p><b>GENERAL EXPERIENCE</b></p>
               </div>
             </div>
 

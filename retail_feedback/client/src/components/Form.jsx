@@ -157,5 +157,5 @@ function getBarFillHeight (value, index){
         4:[100,100,50],
         5:[100,100,100],
     };
-    return levels [value]?.[index]||0;
+    return levels[value]?.[index]||0;
 }
