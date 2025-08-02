@@ -11,14 +11,31 @@ import adidas from './assets/adidaswhite.png';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, LineElement, PointElement, Title, Tooltip, Legend, TimeScale);
 
+/********************************
+Name: ratingLabels & staffLabels
+Function: Used to display options or legends on satisfaction scales.
+********************************/
 const ratingLabels = ['1', '2', '3', '4', '5'];
 const staffLabels = ['Yes', 'No', 'Not Sure'];
 
+/********************************
+Name: Dashboard Component
+Function: Displays the main administration panel for viewing and managing feedback by store.
+Result: Loads data from the backend, allows you to select a store and view statistics or comments.
+********************************/
 export default function Dashboard() {
+
   const [feedbacks, setFeedbacks] = useState([]);
   const [selectedStore, setSelectedStore] = useState('');
   const [selectedView, setSelectedView] = useState('statistics');
 
+/*
+*******************************
+Name: useEffect for initial feedback loading
+Function: Makes an API request to retrieve all feedback records.
+Result: Stores the data in the 'feedbacks' state.
+*******************************
+*/
   useEffect(() => {
     fetch('http://localhost:4000/api/feedback')
       .then(res => res.json())
@@ -26,6 +43,13 @@ export default function Dashboard() {
       .catch(err => console.error('Error al cargar feedback:', err));
   }, []);
 
+/*
+*******************************
+Name: HighlightComm Function
+Function: Sends a comment to the backend to highlight it.
+Receives the original comment ID, text, and location.
+*******************************
+*/
   const HighlightComm = async (commentId, commentText, location) => {
     try {
       await fetch('http://localhost:4000/api/highlighted', {
@@ -40,22 +64,41 @@ export default function Dashboard() {
     }
   };
 
+/********************************
+- stores: Generates an array of available locations from the feedback data.
+- filtered: Filters feedback based on the selected store; if no selection is made, returns all.
+********************************/
   const stores = [...new Set(feedbacks.map(f => f.location))];
   const filtered = selectedStore ? feedbacks.filter(f => f.location === selectedStore) : feedbacks;
 
   if (!filtered.length) return <p>Loading data or no results...</p>;
 
+/********************************
+Name: countRatings Function
+Function: Counts the number of times each rating (from 1 to 5) appears per question.
+Result: Returns a 5-element array, where each index represents the number of answers with that rating.
+********************************/
   const countRatings = (field) => {
     const counts = Array(5).fill(0);
     filtered.forEach(f => (f[field] >= 1 && f[field] <= 5) && counts[f[field] - 1]++);
     return counts;
   };
 
+/********************************
+Name: calculateAverage Function
+Function: Calculates the average of the grades (between 1 and 5).
+********************************/
   const calculateAverage = (field) => {
     const valid = filtered.map(f => f[field]).filter(v => v >= 1 && v <= 5);
     return valid.length ? (valid.reduce((a, b) => a + b) / valid.length).toFixed(2) : 0;
   };
 
+/*********************************
+Name: getTimeData Function
+Function: Generates a time series of data. Filters existing records and their creation date, sorting them chronologically, 
+and then converts them into {x, y} objects for display in graphs.
+Result: Returns an array of objects with dates (`x`) and values (`y`) to graph the evolution of the field over time.
+*********************************/
   const getTimeData = (field) => (
     filtered
       .filter(f => f[field] && f.createdAt)
@@ -63,19 +106,38 @@ export default function Dashboard() {
       .map(f => ({ x: new Date(f.createdAt), y: f[field] }))
   );
 
+/***********************************
+Name: (staffCounts)
+Function: Loops through each label defined in `staffLabels` ("Yes", "No", "Not Sure") and counts how many times it appears in the `staff` field of the filtered feedback.
+***********************************/
   const staffCounts = staffLabels.map(label => filtered.filter(f => f.staff === label).length);
 
+/**********************************
+Name: chartSettings function
+Function: Generates the basic settings for a chart, receives the data to be charted, and the desired background color.
+Result: Returns an object with the labels and datasets.
+**********************************/
   const chartSettings = (data, color) => ({
     labels: ratingLabels,
     datasets: [{ data, backgroundColor: color }]
   });
 
+/***********************************
+Name: lineSettings function
+Function: Generates the settings for a line chart, including the dataset name, the data itself, and the line color.
+Result: Returns a settings object for representing time series.
+***********************************/
   const lineSettings = (label, data, color) => ({
     datasets: [{
       label, data, borderColor: color, tension: 0.3, fill: false
     }]
   });
 
+/************************************
+Name: timeOptions Object
+Function: Sets the X-axis as a time scale (by days) and constrains the Y-axis between 1 and 5 by the maximum score.
+Result: Displays data distributed over time.
+************************************/
   const timeOptions = {
     scales: {
       x: { type: 'time', time: { unit: 'day' } },

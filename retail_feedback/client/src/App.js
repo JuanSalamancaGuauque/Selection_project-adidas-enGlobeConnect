@@ -12,8 +12,15 @@ const routes = {
 };
 
 function App() {
+
+  /*Save the current browser path*/
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
 
+/********************************
+Name:  useEffect - Current Path Sync
+Function: Listens for changes in the browser history and updates the state (currentPath) with the current path.
+Result: Keeps the state of the current path synchronized with the user's navigation.
+********************************/
   useEffect(() => {
     const onPopState = () => setCurrentPath(window.location.pathname);
     window.addEventListener('popstate', onPopState);

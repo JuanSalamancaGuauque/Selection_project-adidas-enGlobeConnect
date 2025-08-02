@@ -1,3 +1,11 @@
+/*
+*******************************
+Name: Mongoose schema for storing highlighted comments from feedback.
+Fuction: Receives the original comment ID, comment text, location, and creation date.
+Result: Sends and stores this data to the 'highlightedcomments' MongoDB collection.
+*******************************
+*/
+
 const mongoose = require('mongoose');
 
 const HighlightedCommentSchema = new mongoose.Schema({
