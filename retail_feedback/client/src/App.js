@@ -27,23 +27,11 @@ Result: Keeps the state of the current path synchronized with the user's navigat
     return () => window.removeEventListener('popstate', onPopState);
   }, []);
 
-  const navigate = (path) => {
-    window.history.pushState({}, '', path);
-    setCurrentPath(path);
-  };
-
   return (
     <BrowserRouter>
-      <div>
-        <nav className="nav-buttons">
-          <button onClick={() => navigate('/form')}>Formulario</button>
-          <button onClick={() => navigate('/dashboard')}>Dashboard</button>
-          <button onClick={() => navigate('/dashclient')}>Public Dashboard</button>
-        </nav>
         <main>
           {routes[currentPath] || <h1>404 - Página no encontrada</h1>}
         </main>
-      </div>
     </BrowserRouter>
   );
 }

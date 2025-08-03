@@ -210,3 +210,40 @@ h1 {
 .highlight-button:hover {
   background-color: #e68900;
 }
+
+@media (max-width: 1024px)
+{
+  .sideMenu
+  {
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 1rem 0;
+  }
+
+  .sideMenu-logo
+  {
+    width: 50px;
+    margin-bottom: 0;
+  }
+
+  .sideMenu-nav
+  {
+    flex-direction: row;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .sideMenu-button
+  {
+    font-size: 14px;
+    padding: 0.5rem;
+    text-align: center;
+  }
+
+  .main-dashboard
+  {
+    padding: 1.5rem;
+  }
+}

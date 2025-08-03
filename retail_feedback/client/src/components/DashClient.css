@@ -336,10 +336,94 @@ justify-content: center;
   transition: opacity 0.5s ease-out;
 }
 
-
 .chart_box.loaded {
   opacity: 1;
   transform: translateY(0);
 }
 
+@media (max-width:1024px)
+{
+  .chart_box
+  {
+   flex-direction: column;
+   padding: 2rem;
+   align-items: center;
+   text-align: center; 
+  }
 
+  .First_column, .Second_column, .Third_column
+  {
+    width: 100%;
+    padding: 1rem 0;
+  }
+
+  .Second_column
+  {
+    display: flex;
+    justify-content: center;
+  }
+
+  .idol_img
+  {
+    width: 80%;
+    max-width: 400px;
+  }
+
+  .store_name
+  {
+    writing-mode: initial;
+    text-orientation: initial;
+    font-size: 1.1rem;
+    margin-top: 1rem;
+  }
+}
+
+@media (max-width: 600px)
+{
+  .chart_container
+  {
+    padding: 1rem;
+  }
+
+  .chart_box
+  {
+    padding: 1.5rem
+  }
+
+  .adidas_logo
+  {
+    width: 80px;
+  }
+
+  .store_name
+  {
+    font-size: 1rem;
+  }
+
+  .Third_column h2
+  {
+    font-size: 2rem;
+  }
+
+  .subtittle
+  {
+    font-size: 1rem;
+  }
+
+  .rating_item .stars
+  {
+    font-size: 1.5rem;
+  }
+
+  .rating_item p
+  {
+    font-size: 1rem;
+  }
+
+  .comment_box
+  {
+    font-size: 1rem;
+    padding: 1rem;
+  }
+  
+}

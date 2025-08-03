@@ -19,16 +19,16 @@ Specific Objectives:
 
 Backend (Node.js + MongoDB):
 
-Clone the repository.
-Download MongoDB Compass and create a new connection, copy the path, and create a database named retail_feedback.
-Run npm install in the backend (server) folder.
+- Clone the repository and the main branch.
+- Download MongoDB Compass and create a new connection, copy the path, and create a database named retail_feedback.
+- Run npm install in the backend (server) folder.
 Start the backend with "node index.js".
 
 Frontend (React):
 
-Go to the frontend (client) folder.
-Run "npm install".
-Start the frontend with "npm start".
+- Go to the frontend (client) folder.
+- Run "npm install".
+- Start the frontend with "npm start".
 
 When it's up and running, put this in the link to access a store: 
 
