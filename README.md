@@ -30,6 +30,21 @@ Go to the frontend (client) folder.
 Run "npm install".
 Start the frontend with "npm start".
 
+When it's up and running, put this in the link to access a store: 
+
+Form:
+http://localhost:3000/form?location=unicentro
+http://localhost:3000/form?location=brand
+http://localhost:3000/form?location=outlet
+
+Dashboard:
+http://localhost:3000/dashboard
+
+Public Dashborad:
+http://localhost:3000/dashclient?location=unicentro
+http://localhost:3000/dashclient?location=brand
+http://localhost:3000/dashclient?location=outlet
+
 4. Requirements:
 
 General:
