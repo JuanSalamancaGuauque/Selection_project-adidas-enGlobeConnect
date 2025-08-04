@@ -71,5 +71,20 @@ app.get('/api/highlighted', async (req, res) => {
   const comments = await HighlightedComment.find(query).sort({ createdAt: -1 });
   res.json(comments);
 });
+/*
+*******************************
+Name: DELETE /api/highlighted/:id
+Function: Deletes a highlighted comment by its ID.
+Result: Removes the comment from the highlighted comment section of the database and returns a success or an error message.
+*******************************
+*/
+app.delete('/api/highlighted', async (req, res) => {
+  try {
+    await HighlightedComment.findByIdAndDelete(req.params.id);
+    res.json({ message: 'Comment deleted' });
+  } catch (err) {
+    res.status(500).json({ error: 'Error deleting highlighted comment' });
+  }
+});
 
 app.listen(4000, () => console.log('Servidor en http://localhost:4000'));
