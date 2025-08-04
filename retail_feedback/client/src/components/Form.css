@@ -187,3 +187,7 @@ textarea{
     margin-top:4px;
 }
 
+.location_display {
+  text-align: center;
+  margin: 10px 0;
+}

@@ -32,7 +32,7 @@ Function: Manages the state of feedback data, highlighted comments, animations, 
 
 /********************************
 Name: useEffect - Extract location parameter
-Function: Obtains the `location` parameter from the URL and saves it to the `storeLocation` state
+Function: Obtains the (location) parameter from the URL and saves it to the (storeLocation) state
 Result: Allows you to determine which store should be displayed based on the URL.
 ********************************/
   useEffect(() => {
@@ -54,7 +54,7 @@ Function: Changes the current image every 6 seconds by applying a fade-in animat
       setTimeout(() => {
         setCurrentImageIndex((prev) => (prev + 1) % idolImages.length);
         setFadeImage(true);
-      }, 500);
+      }, 600);
     }, 6000);
 
   /*Cleaning image rotation interval*/
@@ -70,12 +70,12 @@ Function: Changes the current image every 6 seconds by applying a fade-in animat
   useEffect(() => {
     if (!storeLocation) return;
 
-/********************************
-Name: fetchData
-Function: Makes asynchronous requests to retrieve feedback data and highlighted comments based on the store's location.
-If feedback is found, updates the store's title.
-Result: Updates the feedbackData, highlightedComments, and storeTitle states with the data retrieved from the server.
-********************************/  
+    /********************************
+    Name: fetchData
+    Function: Makes asynchronous requests to retrieve feedback data and highlighted comments based on the store's location.
+    If feedback is found, updates the store's title.
+    Result: Updates the feedbackData, highlightedComments, and storeTitle states with the data retrieved from the server.
+    ********************************/  
     const fetchData = async () => {
       try {
         const feedbackRes = await fetch(`http://localhost:4000/api/feedback?location=${storeLocation}`);
@@ -119,10 +119,9 @@ Name: avg - Calculate Average
 Function: Calculates the average of the numeric values for a given key in the feedback data.
 Result: Returns the numeric average or 0 if no data is available.
 ********************************/
-  const avg = (key) => {
-    if (feedbackData.length === 0) return 0;
-    const total = feedbackData.reduce((sum, entry) => sum + (entry[key] || 0), 0);
-    return total / feedbackData.length;
+  const calculateAverage = (key) => {
+    const valid = feedbackData.map(e => e[key]).filter(v => v >= 1 && v <= 5);
+    return valid.length ? (valid.reduce((a, b) => a + b) / valid.length).toFixed(2) : 0;
   };
 
 /********************************
@@ -175,17 +174,17 @@ Result: Returns the comment text or a loading message if no comments are availab
 
             <div className="ratings">
               <div className="rating_item">
-                <div className="stars">{getStars(avg('availability'))}</div>
+                <div className="stars">{getStars(calculateAverage('availability'))}</div>
                 <p><b>PRODUCT AVAILABILITY</b></p>
               </div>
 
               <div className="rating_item">
-                <div className="stars">{getStars(avg('cleanliness'))}</div>
+                <div className="stars">{getStars(calculateAverage('cleanliness'))}</div>
                 <p><b>STORE CARE</b></p>
               </div>
 
               <div className="rating_item">
-                <div className="stars">{getStars(avg('satisfaction'))}</div>
+                <div className="stars">{getStars(calculateAverage('satisfaction'))}</div>
                 <p><b>GENERAL EXPERIENCE</b></p>
               </div>
             </div>

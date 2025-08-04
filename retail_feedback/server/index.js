@@ -33,9 +33,9 @@ app.post('/api/feedback', async (req, res) => {
   try {
     const data = new Feedback(req.body);
     await data.save();
-    res.status(201).send({ message: 'Feedback recibido' });
+    res.status(201).send({ message: 'Feedback saved' });
   } catch (error) {
-    res.status(400).send({ error: 'Error al guardar feedback' });
+    res.status(400).send({ error: 'Error feedback' });
   }
 });
 
@@ -43,7 +43,7 @@ app.post('/api/highlighted', async (req, res) => {
   try {
     const data = new HighlightedComment(req.body);
     await data.save();
-    res.status(201).send({ message: 'Comment save' });
+    res.status(201).send({ message: 'Comment saved' });
   } catch (error) {
     res.status(400).send({ error: 'Comment error' });
   }

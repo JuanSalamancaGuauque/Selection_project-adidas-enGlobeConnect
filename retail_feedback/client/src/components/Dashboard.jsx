@@ -57,10 +57,10 @@ Receives the original comment ID, text, and location.
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ commentId, commentText, location })
       });
-      alert('Comentario destacado');
+      alert('comment highlighted');
     } catch (err) {
-      console.error('Error al destacar comentario:', err);
-      alert('No se pudo destacar el comentario.');
+      console.error('comment highlighted error', err);
+      alert('Could not highlight comment');
     }
   };
 
@@ -102,7 +102,7 @@ Result: Returns an array of objects with dates (`x`) and values (`y`) to graph t
   const getTimeData = (field) => (
     filtered
       .filter(f => f[field] && f.createdAt)
-      .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
+      .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt)) //ascending date
       .map(f => ({ x: new Date(f.createdAt), y: f[field] }))
   );
 
@@ -141,7 +141,7 @@ Result: Displays data distributed over time.
   const timeOptions = {
     scales: {
       x: { type: 'time', time: { unit: 'day' } },
-      y: { min: 1, max: 5 }
+      y: { min: 1, max: 6 }
     }
   };
 
